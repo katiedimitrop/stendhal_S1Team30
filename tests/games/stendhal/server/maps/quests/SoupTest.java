@@ -32,7 +32,8 @@ import utilities.RPClass.ItemTestHelper;
 
 public class SoupTest {
 
-	private Player player = null;
+	private Player player1 = null;
+	private Player player2 = null;
 	private SpeakerNPC npc = null;
 	private Engine en = null;
 
@@ -52,7 +53,8 @@ public class SoupTest {
 		AbstractQuest quest = new Soup();
 		quest.addToWorld();
 
-		player = PlayerTestHelper.createPlayer("bob");
+		player1 = PlayerTestHelper.createPlayer("bob");
+		player2 = PlayerTestHelper.createPlayer("tim");
 	}
 
 	@Test
@@ -60,66 +62,113 @@ public class SoupTest {
 
 		npc = SingletonRepository.getNPCList().get("Old Mother Helena");
 		en = npc.getEngine();
-		player.setXP(100);
-		en.step(player, "hi");
+		player1.setXP(100);
+		en.step(player1, "hi");
 		assertEquals("Hello, stranger. You look weary from your travels. I know what would #revive you.", getReply(npc));
-		en.step(player, "revive");
+		en.step(player1, "revive");
 		assertEquals("My special soup has a magic touch. I need you to bring me the #ingredients.", getReply(npc));
-		en.step(player, "ingredients");
+		en.step(player1, "ingredients");
 		assertEquals("I need 9 ingredients before I make the soup: #carrot, #spinach, #courgette, #collard, #salad, #onion, #cauliflower, #broccoli, and #leek. Will you collect them?", getReply(npc));
-		en.step(player, "no");
+		en.step(player1, "no");
 		assertEquals("Oh, never mind. It's your loss.", getReply(npc));
-		en.step(player, "bye");
+		en.step(player1, "bye");
 		assertEquals("Goodbye, all you customers do work me hard ...", getReply(npc));
-		en.step(player, "hi");
+		en.step(player1, "hi");
 		assertEquals("Hello, stranger. You look weary from your travels. I know what would #revive you.", getReply(npc));
-		en.step(player, "revive");
+		en.step(player1, "revive");
 		assertEquals("My special soup has a magic touch. I need you to bring me the #ingredients.", getReply(npc));
-		en.step(player, "ingredients");
+		en.step(player1, "ingredients");
 		assertEquals("I need 9 ingredients before I make the soup: #carrot, #spinach, #courgette, #collard, #salad, #onion, #cauliflower, #broccoli, and #leek. Will you collect them?", getReply(npc));
-		en.step(player, "yes");
+		en.step(player1, "yes");
 		assertEquals("You made a wise choice. Do you have anything I need already?", getReply(npc));
-		en.step(player, "yes");
+		en.step(player1, "yes");
 		assertEquals("What did you bring?", getReply(npc));
-		en.step(player, "leek");
+		en.step(player1, "leek");
 		assertEquals("Don't take me for a fool, traveller. You don't have a leek with you.", getReply(npc));
-		en.step(player, "spinach");
+		en.step(player1, "spinach");
 		assertEquals("Don't take me for a fool, traveller. You don't have a spinach with you.", getReply(npc));
-		en.step(player, "bye");
+		en.step(player1, "bye");
 		assertEquals("Bye.", getReply(npc));
 		// [16:51] Removed contained home scroll item with ID 6 from bag
 		// [16:52] You see spinach. It is enriched with vitamins. Stats are (HP: 30).
 		// summon all except salad and onion in player's bag
-		PlayerTestHelper.equipWithItem(player, "carrot");
-		PlayerTestHelper.equipWithItem(player, "spinach");
-		PlayerTestHelper.equipWithItem(player, "courgette");
-		PlayerTestHelper.equipWithItem(player, "collard");
-		PlayerTestHelper.equipWithItem(player, "cauliflower");
-		PlayerTestHelper.equipWithItem(player, "broccoli");
-		PlayerTestHelper.equipWithItem(player, "leek");
-		en.step(player, "hi");
+		PlayerTestHelper.equipWithItem(player1, "carrot");
+		PlayerTestHelper.equipWithItem(player1, "spinach");
+		PlayerTestHelper.equipWithItem(player1, "courgette");
+		PlayerTestHelper.equipWithItem(player1, "collard");
+		PlayerTestHelper.equipWithItem(player1, "cauliflower");
+		PlayerTestHelper.equipWithItem(player1, "broccoli");
+		PlayerTestHelper.equipWithItem(player1, "leek");
+		en.step(player1, "hi");
 		assertEquals("Welcome back! I hope you collected some #ingredients for the soup, or #everything.", getReply(npc));
-		en.step(player, "everything");
+		en.step(player1, "everything");
 		assertEquals("You didn't have all the ingredients I need. I still need 2 ingredients: #salad and #onion. You'll get bad karma if you keep making mistakes like that!", getReply(npc));
-		en.step(player, "bye");
+		en.step(player1, "bye");
 		assertEquals("Bye.", getReply(npc));
-		en.step(player, "hi");
+		en.step(player1, "hi");
 		assertEquals("Welcome back! I hope you collected some #ingredients for the soup, or #everything.", getReply(npc));
-		en.step(player, "ingredients");
+		en.step(player1, "ingredients");
 		assertEquals("I still need 2 ingredients: #salad and #onion. Did you bring anything I need?", getReply(npc));
-		PlayerTestHelper.equipWithItem(player, "salad");
-		PlayerTestHelper.equipWithItem(player, "onion");
-		en.step(player, "salad");
+		PlayerTestHelper.equipWithItem(player1, "salad");
+		PlayerTestHelper.equipWithItem(player1, "onion");
+		en.step(player1, "salad");
 		assertEquals("Thank you very much! What else did you bring?", getReply(npc));
-		en.step(player, "onion");
+		en.step(player1, "onion");
 		// [16:52] madmetzger earns 20 experience points.
 		assertEquals("The soup's on the table for you. It will heal you. My magical method in making the soup has given you a little karma too.", getReply(npc));
-		en.step(player, "bye");
+		en.step(player1, "bye");
 		assertEquals("Goodbye, all you customers do work me hard ...", getReply(npc));
-		assertEquals(player.getXP(), 120);
-		en.step(player, "hi");
+		assertEquals(player1.getXP(), 120);
+		en.step(player1, "hi");
 		assertEquals("I hope you don't want more soup, because I haven't finished washing the dishes. Please check back in 10 minutes.", getReply(npc));
-		en.step(player, "bye");
+		en.step(player1, "bye");
 		assertEquals("Goodbye, all you customers do work me hard ...", getReply(npc));
+		
+		//test again with a different player, this time he gives all the ingredients at once
+		npc = SingletonRepository.getNPCList().get("Old Mother Helena");
+		en = npc.getEngine();
+		player2.setXP(100);
+		en.step(player2, "hi");
+		assertEquals("Hello, stranger. You look weary from your travels. I know what would #revive you.", getReply(npc));
+		en.step(player2, "revive");
+		assertEquals("My special soup has a magic touch. I need you to bring me the #ingredients.", getReply(npc));
+		en.step(player2, "ingredients");
+		assertEquals("I need 9 ingredients before I make the soup: #carrot, #spinach, #courgette, #collard, #salad, #onion, #cauliflower, #broccoli, and #leek. Will you collect them?", getReply(npc));
+		en.step(player2, "no");
+		assertEquals("Oh, never mind. It's your loss.", getReply(npc));
+		en.step(player2, "bye");
+		assertEquals("Goodbye, all you customers do work me hard ...", getReply(npc));
+		en.step(player2, "hi");
+		assertEquals("Hello, stranger. You look weary from your travels. I know what would #revive you.", getReply(npc));
+		en.step(player2, "revive");
+		assertEquals("My special soup has a magic touch. I need you to bring me the #ingredients.", getReply(npc));
+		en.step(player2, "ingredients");
+		assertEquals("I need 9 ingredients before I make the soup: #carrot, #spinach, #courgette, #collard, #salad, #onion, #cauliflower, #broccoli, and #leek. Will you collect them?", getReply(npc));
+		en.step(player2, "yes");
+		assertEquals("You made a wise choice. Do you have anything I need already?", getReply(npc));
+		en.step(player2, "yes");
+		assertEquals("What did you bring?", getReply(npc));
+		en.step(player2, "leek");
+		assertEquals("Don't take me for a fool, traveller. You don't have a leek with you.", getReply(npc));
+		en.step(player2, "bye");
+		assertEquals("Bye.", getReply(npc));
+		// summon all items in players bag
+		PlayerTestHelper.equipWithItem(player2, "carrot");
+		PlayerTestHelper.equipWithItem(player2, "spinach");
+		PlayerTestHelper.equipWithItem(player2, "courgette");
+		PlayerTestHelper.equipWithItem(player2, "collard");
+		PlayerTestHelper.equipWithItem(player2, "cauliflower");
+		PlayerTestHelper.equipWithItem(player2, "broccoli");
+		PlayerTestHelper.equipWithItem(player2, "leek");
+		PlayerTestHelper.equipWithItem(player2, "salad");
+		PlayerTestHelper.equipWithItem(player2, "onion");
+		en.step(player2, "hi");
+		assertEquals("Welcome back! I hope you collected some #ingredients for the soup, or #everything.", getReply(npc));
+		en.step(player2, "everything");
+		assertEquals("The soup's on the table for you, it will heal you. Tell me if I can help you with anything else.", getReply(npc));
+		en.step(player2, "bye");
+		assertEquals("Goodbye, all you customers do work me hard ...", getReply(npc));
+		assertEquals(player2.getXP(), 150);
+		// player 2 should get more xp than player 1, and more karma
 	}
 }
