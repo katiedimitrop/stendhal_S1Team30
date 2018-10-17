@@ -58,7 +58,6 @@ public class WeeklyItemQuestTest {
 
 		final AbstractQuest quest = new WeeklyItemQuest();
 		quest.addToWorld();
-
 	}
 	@Before
 	public void setUp() {
@@ -128,6 +127,24 @@ public class WeeklyItemQuestTest {
 		assertTrue(getReply(npc).startsWith("I want Kirdneh's museum to be the greatest in the land! Please fetch "));
 		en.step(player, "bye");
 		assertEquals("Good bye, it was pleasant talking with you.", getReply(npc));
+
+		// -----------------------------------------------
+		// Jahanzaib - Test to make sure that when a different item to search for is requested, the new item is not the same
+		// as the item that was previously requested. For issue #6 from Software Engineering Task 1.
+		
+		for (int intTestCount = 0; intTestCount < 1000; intTestCount++)
+		{
+		  player.setQuest(questSlot, "dark dagger;0");
+		  en.step(player, "hi");
+		  assertEquals("Welcome to Kirdneh Museum.", getReply(npc));
+		  en.step(player, "task");
+		  assertEquals("You're already on a quest to bring the museum a dark dagger. Please say #complete if you have it with you. But, perhaps that is now too rare an item. I can give you #another task, or you can return with what I first asked you.", getReply(npc));
+		  en.step(player, "another");
+		  // Assert that the newly assigned item is NOT the same as what was already assigned.
+		  assertTrue(!(getReply(npc).contains("dark dagger")));
+		  en.step(player, "bye");
+		  assertEquals("Good bye, it was pleasant talking with you.", getReply(npc));
+		}
 
 	}
 }

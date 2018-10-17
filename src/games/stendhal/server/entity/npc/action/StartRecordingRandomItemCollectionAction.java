@@ -85,7 +85,13 @@ public class StartRecordingRandomItemCollectionAction implements ChatAction {
 
 	@Override
 	public void fire(final Player player, final Sentence sentence, final EventRaiser raiser) {
-		final String itemname = Rand.rand(items.keySet());
+		String itemname = Rand.rand(items.keySet());
+		
+		// To avoid assigning the same item twice in a row, repeat picking the item from the map
+		// until the item picked is not the same as the item that the player was already assigned previously.
+	    while (player.getRequiredItemName(questname, index).contains(itemname))
+	      itemname = Rand.rand(items.keySet());
+	    
 		final int quantity = items.get(itemname);
 
 		Map<String, String> substitutes = new HashMap<String, String>();
