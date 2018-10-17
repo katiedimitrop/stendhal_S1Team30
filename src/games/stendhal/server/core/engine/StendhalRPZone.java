@@ -55,6 +55,7 @@ import games.stendhal.server.entity.creature.Creature;
 import games.stendhal.server.entity.creature.DomesticAnimal;
 import games.stendhal.server.entity.creature.Sheep;
 import games.stendhal.server.entity.item.Item;
+import games.stendhal.server.entity.mapstuff.block.Block;
 import games.stendhal.server.entity.mapstuff.portal.OneWayPortalDestination;
 import games.stendhal.server.entity.mapstuff.portal.Portal;
 import games.stendhal.server.entity.mapstuff.spawner.CreatureRespawnPoint;
@@ -1124,6 +1125,12 @@ public class StendhalRPZone extends MarauroaRPZone {
 				if (area.intersects(otherEntity.getX(), otherEntity.getY(), otherEntity.getWidth(), otherEntity.getHeight())) {
 					// Check if it's blocking
 					if (otherEntity.isObstacle(entity)) {
+						if (otherEntity instanceof Block) {
+							if (entity.getZone() != otherEntity.getZone()) {
+								((Block) otherEntity).push(((Player) entity), ((Player) entity).getDirection());
+								return null;
+							}
+						}
 						return otherEntity;
 					}
 				}
