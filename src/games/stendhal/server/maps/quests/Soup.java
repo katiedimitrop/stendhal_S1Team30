@@ -293,7 +293,6 @@ public class Soup extends AbstractQuest {
 								if (!missing.isEmpty()) {
 									npc.say("Thank you very much! What else did you bring?");
 								} else {
-									player.addKarma(5.0);
 									player.addXP(20);
 									/*
 									 * place soup after XP added otherwise
@@ -360,7 +359,7 @@ public class Soup extends AbstractQuest {
 	}
 
 	// if we're checking all at once it's a bit different method
-	// also player gets no karma (don't get karma for being lazy)
+	// also player gets karma (and more xp)
 	private void checkForAllIngredients(final Player player, final EventRaiser npc) {
 		List<String> missing = missingFood(player, false);
 		for (final String food : missing) {
@@ -383,9 +382,9 @@ public class Soup extends AbstractQuest {
 			player.addKarma(-5.0);
 			return;
 		} else {
-			// you get less XP if you did it the lazy way
-			// and no karma
-			player.addXP(20);
+			// more xp and karma this way
+			player.addXP(50);
+			player.addKarma(5.0);
 			placeSoupFor(player);
 			player.getStatusList().removeAll(PoisonStatus.class);
 			npc.say("The soup's on the table for you, it will heal you. Tell me if I can help you with anything else.");
