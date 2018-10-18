@@ -39,7 +39,7 @@
   </creature>
   
   <creature name="mage gnome">
-    <type class="gnome" subclass="woman_gnome" tileid="gnome.png:1"/>
+    <type class="gnome" subclass="woman_gnome" tileid="gnome.png:1"></type>
     <description>You see a mage gnome, she cleans the dirty mountain.</description>
     <attributes>
       <atk value="52"/>
@@ -54,8 +54,8 @@
     <corpse name="tiny_humanoid" harmless="gnome" />
     <drops>
       <item value="money" quantity="[2,5]" probability="70.0"/>
-      <item value="minor potion" quantity="[1,1]" probability="2.5"/>
-      <item value="antidote" quantity="[1,1]" probability="10.0"/>
+      <item value="potion" quantity="[2,4]" probability="40"/>
+      <item value="antidote" quantity="[1,1]" probability="10.0"></item>
       <item value="porcini" quantity="[1,10]" probability="10.0"/>
       <item value="leather armor" quantity="[1,1]" probability="10.0"/>
     </drops>

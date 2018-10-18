@@ -14,12 +14,15 @@ package games.stendhal.server.entity.creature;
 
 import static org.junit.Assert.assertTrue;
 
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import games.stendhal.server.core.engine.SingletonRepository;
 import games.stendhal.server.core.engine.StendhalRPZone;
+//import games.stendhal.server.entity.creature.impl.DropItem;
+//import games.stendhal.server.entity.item.Item;
 import games.stendhal.server.entity.player.Player;
 import games.stendhal.server.maps.MockStendlRPWorld;
 import marauroa.common.Log4J;
@@ -60,6 +63,25 @@ public class ItemGuardCreatureTest {
 		player.setQuest("test_quest","start");
 		creature.onDead(player);
 		assertTrue(player.getFirstEquipped("knife") != null);
+	} 
+
+	@Test
+	public void testMageGnome() {
+
+		Creature creature = SingletonRepository.getEntityManager().getCreature("mage gnome");
+		for(int number = 4; number>=0; number--)
+		{
+		  
+          if(creature.dropsItems.get(number).name.equals("minor potion")) 
+        	 assertTrue(false);
+          if(creature.dropsItems.get(number).name.equals("potion")) 
+          {
+         	 if(creature.dropsItems.get(number).min != 2 ||
+         	    creature.dropsItems.get(number).max != 4 ||
+         	   creature.dropsItems.get(number).probability != 40.0)
+         		assertTrue(false);	 
+          }	  
+		}
 	}
 
 }
