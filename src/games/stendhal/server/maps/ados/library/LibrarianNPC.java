@@ -93,7 +93,7 @@ public class LibrarianNPC implements ZoneConfigurator {
 				addReply("free",
 				        "The Wikipedia content may be used according to the rules specified in the Creative Commons Attribution-ShareAlike License which can be found at #https://en.wikipedia.org/wiki/Wikipedia:Text_of_Creative_Commons_Attribution-ShareAlike_3.0_Unported_License .");
 				addReply("gem book",
-						"If you want to learn about gem book, chat to my friend Ceryl in Semos library, has a good collection of books on mining related subjects.");
+						"If you want to learn about gem book, chat to my friend Ceryl in Semos library, which has a good collection of books on mining related subjects.");
 				addGoodbye();
 			}
 		};
