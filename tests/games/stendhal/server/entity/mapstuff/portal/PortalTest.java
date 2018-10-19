@@ -15,10 +15,20 @@ package games.stendhal.server.entity.mapstuff.portal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
+//import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+import java.io.IOException;
+//import games.stendhal.server.core.config.XMLUtil;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
 
 import games.stendhal.server.core.engine.StendhalRPZone;
 import games.stendhal.server.entity.player.Player;
@@ -27,6 +37,9 @@ import marauroa.common.Log4J;
 import utilities.PlayerTestHelper;
 import utilities.RPClass.EntityTestHelper;
 import utilities.RPClass.PortalTestHelper;
+import org.w3c.dom.*;
+//import javax.xml.parsers.*;
+//import java.io.*;
 
 public class PortalTest {
 
@@ -209,4 +222,45 @@ public class PortalTest {
 		port.onUsedBackwards(player);
 	}
 
+	/**
+	 *  Test nalwor portal destinations
+	 * @throws ParserConfigurationException 
+	 * @throws IOException 
+	 * @throws SAXException 
+	 */
+	@Test
+	public final void testNarwalPortals() throws ParserConfigurationException, SAXException, IOException
+	{
+		 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		 DocumentBuilder builder = factory.newDocumentBuilder();
+	     Document document = builder.parse(new File("data/conf/zones/nalwor.xml"));
+         Element zones = document.getDocumentElement();
+         //list of all <zone> elements below <zones> parent 
+         NodeList list1 = zones.getElementsByTagName("zone");
+         Element firstZone = (Element) list1.item(4);
+         //create list of portals in 0_nalwor_forest_w
+         NodeList list2 = firstZone.getElementsByTagName("portal");
+         
+         Element expectedPortal1 = (Element) list2.item(0);
+         Element actualPortal1 = (Element) list2.item(1);
+         Element expectedPortal2 = (Element) list2.item(2); 
+         Element actualPortal2 = (Element) list2.item(3);
+         
+         int expectedPortal1X = Integer.parseInt(expectedPortal1.getAttribute("x"));
+         int expectedPortal1Y = Integer.parseInt(expectedPortal1.getAttribute("y"));
+         
+         int actualPortal1X = Integer.parseInt(actualPortal1.getAttribute("x"));
+         int actualPortal1Y = Integer.parseInt(actualPortal1.getAttribute("y"));
+         
+         int expectedPortal2X = Integer.parseInt(expectedPortal2.getAttribute("x"));
+         int expectedPortal2Y = Integer.parseInt(expectedPortal2.getAttribute("y"));
+               
+         int actualPortal2X = Integer.parseInt(actualPortal2.getAttribute("x"));
+         int actualPortal2Y = Integer.parseInt(actualPortal2.getAttribute("y"));
+         
+         
+         assertTrue((expectedPortal1X == actualPortal1X)&&(expectedPortal2X == actualPortal2X)&&(expectedPortal1Y == actualPortal1Y - 2)&&(expectedPortal2Y == actualPortal2Y - 2));
+	}
+	
 }
+

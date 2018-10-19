@@ -21,7 +21,6 @@ import games.stendhal.server.entity.npc.action.IncreaseKarmaAction;
 import games.stendhal.server.entity.npc.action.IncreaseXPAction;
 import games.stendhal.server.entity.npc.action.IncrementQuestAction;
 import games.stendhal.server.entity.npc.action.MultipleActions;
-import games.stendhal.server.entity.npc.action.ResetBlockChatAction;
 import games.stendhal.server.entity.npc.action.SetQuestAction;
 import games.stendhal.server.entity.npc.action.SetQuestAndModifyKarmaAction;
 import games.stendhal.server.entity.npc.condition.AndCondition;
@@ -246,13 +245,15 @@ public class HelpWithTheHarvest extends AbstractQuest {
 		String cartDescription = "You see a straw cart. Can you manage to push it to Karl's barn?";
 
 		Block cartOne = new Block(true, "hay_cart");
+		cartOne.setResetBlock(false);
 		cartOne.setPosition(87, 100);
 		cartOne.setDescription(cartDescription);
 		Block cartTwo = new Block(true, "hay_cart");
-		cartOne.setPosition(79, 106);
+		cartTwo.setResetBlock(false);
+		cartTwo.setPosition(79, 106);
 		cartTwo.setDescription(cartDescription);
 
-        ChatAction a = new MultipleActions(new IncrementQuestAction(QUEST_SLOT, 1, -1), new ResetBlockChatAction(cartOne), new ResetBlockChatAction(cartTwo));
+        ChatAction a = new MultipleActions(new IncrementQuestAction(QUEST_SLOT, 1, -1)/*, new ResetBlockChatAction(cartOne), new ResetBlockChatAction(cartTwo)*/);
 
 		zone.add(cartOne);
 		zone.add(cartTwo);
