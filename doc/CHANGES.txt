@@ -1,5 +1,15 @@
 Changelog
 ---------
+1.28uom
+*bugfixes*
+- fixed teleporting hut problem - players no longer spawn outside the entrance of the huts
+- soup quest rewards more experience and karma for correct method of completion
+- ados librarian now knows about gem books
+- fixed straw carts disappearing when entering zone
+- fixed mage gnome is now actually magical 
+- fixed museum quest, no item is requested twice in a row anymore
+
+
 
 1.28
 *world*
