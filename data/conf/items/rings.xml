@@ -82,6 +82,24 @@
       <slot name="keyring"/>
     </equipable>
   </item>
+  
+  <item name="invisibility ring">
+    <type class="ring" subclass="invisibility" tileid="-1"/>
+    <description>You see an invisibility ring, a very useful asset!</description>
+    <implementation class-name="games.stendhal.server.entity.item.InvisibilityRing"/>
+    <attributes>
+    </attributes>
+    <weight value="0.1"/>
+    <value value="1"/>
+    <equipable>
+      <slot name="ground"/>
+      <slot name="content"/>
+      <slot name="bag"/>
+      <slot name="trade"/>
+      <slot name="finger"/>
+      <slot name="keyring"/>
+    </equipable>
+  </item>
 
   <item name="engagement ring">
     <type class="ring" subclass="engagement_ring" tileid="-1"/>
