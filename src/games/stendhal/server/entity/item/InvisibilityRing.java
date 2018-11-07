@@ -65,12 +65,14 @@ public class InvisibilityRing extends Item
 		{
 		  player.setInvisible(false);
 		  player.setGhost(false);
+		  player.sendPrivateText("Invisibility and Ghost mode is now off!");
 		  return true;
 		} //if
 		else
 		{
 			player.setInvisible(true);
 			player.setGhost(true);
+			player.sendPrivateText("Invisibility and Ghost mode is now on! Use this wisely!");
 			return true;
 		}
 	}
