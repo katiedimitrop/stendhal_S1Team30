@@ -17,7 +17,8 @@ import games.stendhal.server.entity.player.Player;
 public class InvisibilityRing extends Item 
 {
 	/**
-	 * Creates a new invisibility ring
+	 * Creates a new invisibility ring and immediately sets
+	 * the player to be invisible to creatures
 	 * 
 	 * @param name
 	 * @param clazz
@@ -29,6 +30,7 @@ public class InvisibilityRing extends Item
 			final Map<String, String> attributes)
 	{
 		super(name, clazz, subclass, attributes);
+		setPersistent(true);
 	} //1st constructor
 	
 	/**
@@ -48,10 +50,28 @@ public class InvisibilityRing extends Item
 	 * to be invisible
 	 */
 
-	public void makeInvisible(final RPEntity user) 
-	{
-		if (user instanceof Player) {
-			((Player) user).setInvisible(true);
-		} //if
+	@Override
+	public boolean onUsed(final RPEntity user) {
+		if ((user instanceof Player)) {
+			return makeInvisible((Player) user);
+		}
+		return false;
 	} //onUsed
+	
+	public boolean makeInvisible(Player player)
+	{
+		boolean invisible = player.isInvisibleToCreatures();
+		if (invisible)
+		{
+		  player.setInvisible(false);
+		  player.setGhost(false);
+		  return true;
+		} //if
+		else
+		{
+			player.setInvisible(true);
+			player.setGhost(true);
+			return true;
+		}
+	}
 } //class
