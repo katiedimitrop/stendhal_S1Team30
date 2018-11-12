@@ -1,12 +1,9 @@
 package games.stendhal.server.entity.item;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertThat;
-
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import games.stendhal.server.core.engine.SingletonRepository;
 import games.stendhal.server.core.engine.StendhalRPZone;
 import games.stendhal.server.entity.player.Player;
@@ -31,21 +28,20 @@ public class InvisibilityRingTest {
 	@Test
 	public void testDescribe() {
 		final InvisibilityRing ring = (InvisibilityRing) SingletonRepository.getEntityManager().getItem("invisibility ring");
-		assertThat(ring.describe(), is("You see an §'invisibility ring'. Use it to hide from your enemies."));
+		assertThat(ring.describe(), is("You see an §'invisibility ring', a very useful asset!"));
 	}
 	/**
-	 * Tests for onUsed.
+	 * Tests for onEquipped.
 	 */
 	@Test
-	public void testOnUsed() {
+	public void testOnEquipped() {
 		final Player player1 = PlayerTestHelper.createPlayer("George");
 		PlayerTestHelper.registerPlayer(player1, "int_semos_guard_house");
-		final InvisibilityRing ring = new InvisibilityRing();
-		PlayerTestHelper.equipWithItem(player1,ring);
+		final InvisibilityRing ring = (InvisibilityRing) SingletonRepository.getEntityManager().getItem("invisibility ring");
+		player1.equip("finger",ring);
+		ring.onEquipped(player1, "finger");
 		assertThat(player1.isInvisibleToCreatures(), is(true));
-		// how do we unequip the items?
-		assertThat(player1.isInvisibleToCreatures(), not(is(true)));
-		
+		assertThat(player1.isGhost(), is(true));
 	}
 
 }

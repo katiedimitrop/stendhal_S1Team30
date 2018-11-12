@@ -51,9 +51,9 @@ public class InvisibilityRing extends Item
 	 */
 
 	@Override
-	public boolean onUsed(final RPEntity user) {
-		if ((user instanceof Player)) {
-			return makeInvisible((Player) user);
+	public boolean onEquipped(RPEntity equipper, String slot) {
+		if ((equipper instanceof Player)) {
+			return makeInvisible((Player) equipper);
 		}
 		return false;
 	} //onUsed
