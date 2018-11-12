@@ -1222,11 +1222,7 @@ West: Semos
     </portal>
     
     <portal x="34" y="85" ref="house_60">
-      <destination zone="int_ados_house_60" ref="in" />
-      <implementation class-name="games.stendhal.server.entity.mapstuff.portal.HousePortal">
-        <parameter name="doorId">ados house 60</parameter>
-        <parameter name="rejected">The door is locked.</parameter>
-      </implementation>
+      <destination zone="int_ados_house_60" ref="entrance" />
     </portal>
     
     <portal x="39" y="85" ref="house_61">
@@ -3629,8 +3625,10 @@ My fee:
     
   </zone>
   
-  <zone name="int_ados_house_60" file="interiors/ados/house_60.tmx" accessible="false">
-    <configurator class-name="games.stendhal.server.core.config.zone.NoTeleportIn" />
+  <zone name="int_ados_house_60" file="interiors/ados/house_60.tmx">
+  	<!-- NPCs -->
+    <configurator class-name="games.stendhal.server.maps.ados.bank.LonJathamNPC" />
+  
     <configurator class-name="games.stendhal.server.entity.mapstuff.chest.StoredChestConfigurator">
       <parameter name="x">7</parameter>
       <parameter name="y">2</parameter>
@@ -3643,7 +3641,7 @@ My fee:
     </configurator>
     
     <!-- Portals -->
-    <portal x="7" y="14" ref="in">
+    <portal x="7" y="14" ref="entrance">
       <destination zone="0_ados_city_n" ref="house_60"/>
     </portal>
     <portal x="3" y="3" ref="up">
@@ -3677,8 +3675,7 @@ My fee:
     
   </zone>
   
-  <zone name="int_ados_house_60_1" file="interiors/ados/house_60_1.tmx" accessible="false">
-    <configurator class-name="games.stendhal.server.core.config.zone.NoTeleportIn" />
+  <zone name="int_ados_house_60_1" file="interiors/ados/house_60_1.tmx">
     
     <!-- Portals -->
     <portal x="3" y="3" ref="down">
