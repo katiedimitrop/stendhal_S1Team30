@@ -3627,7 +3627,7 @@ My fee:
   
   <zone name="int_ados_house_60" file="interiors/ados/house_60.tmx">
   	<!-- NPCs -->
-    <configurator class-name="games.stendhal.server.maps.ados.bank.LonJathamNPC" />
+    <configurator class-name="games.stendhal.server.maps.ados.city.LonJathamNPC" />
   
     <configurator class-name="games.stendhal.server.entity.mapstuff.chest.StoredChestConfigurator">
       <parameter name="x">7</parameter>
