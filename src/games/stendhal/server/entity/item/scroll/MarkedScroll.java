@@ -123,4 +123,10 @@ public class MarkedScroll extends TeleportScroll {
 		}
 		return (text);
 	}
+	
+	public void callUseScroll(final Player player)
+	{
+		this.useScroll(player);
+	}
 }
+
