@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static utilities.SpeakerNPCTestHelper.getReply;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import games.stendhal.server.core.engine.SingletonRepository;
@@ -14,26 +13,14 @@ import games.stendhal.server.entity.npc.fsm.Engine;
 import games.stendhal.server.entity.player.Player;
 import games.stendhal.server.maps.MockStendlRPWorld;
 import utilities.PlayerTestHelper;
-import utilities.ZonePlayerAndNPCTestImpl;
 
-public class LonJathamNPCTest extends ZonePlayerAndNPCTestImpl {
+public class LonJathamNPCTest{
 
 	
 	private Player player;
-	private SpeakerNPC npc = null;
+
 	private Engine en = null;
 
-
-	@BeforeClass
-	public static void setUpBeforeClass() throws Exception {
-
-		MockStendlRPWorld.get();
-
-		final StendhalRPZone zone = new StendhalRPZone("testzone");
-
-		new LonJathamNPC().configureZone(zone, null);		
-
-	}
 	
 	@Before
 	public void SetUp() {
@@ -42,7 +29,15 @@ public class LonJathamNPCTest extends ZonePlayerAndNPCTestImpl {
 	
 	@Test
 	public void testDialogue() {
-		npc  = SingletonRepository.getNPCList().get("Lon Jatham");
+		MockStendlRPWorld.get();
+		
+		final StendhalRPZone zone = new StendhalRPZone("int_ados_house_60");
+		
+		new LonJathamNPC().configureZone(zone, null);
+		SpeakerNPC npc  = SingletonRepository.getNPCList().get("Lon Jatham");
+			
+		zone.add(npc);
+		
 		en = npc.getEngine();
 		
 		en.step(player,  "hi");
