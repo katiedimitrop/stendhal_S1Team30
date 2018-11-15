@@ -17,8 +17,10 @@ import games.stendhal.server.entity.player.Player;
 
 public class WheelbarrowSellerNPC implements ZoneConfigurator {
 
-	public static final int BUYING_PRICE = 100;
-
+	public static final int BUYING_PRICE = 20;
+	
+	private StendhalRPZone wheelbarrowZone;
+	
 	/**
 	 * Configure a zone.
 	 *
@@ -28,6 +30,7 @@ public class WheelbarrowSellerNPC implements ZoneConfigurator {
 	@Override
 	public void configureZone(final StendhalRPZone zone, final Map<String, String> attributes) {
 		buildFadoCityArea(zone);
+		wheelbarrowZone = zone;
 	}
 
 	private void buildFadoCityArea(final StendhalRPZone zone) {
@@ -38,9 +41,12 @@ public class WheelbarrowSellerNPC implements ZoneConfigurator {
 			}
 			
 			@Override
-			protected void createDialog() {
-				class WheelbarrowSellerBehaviour extends SellerBehaviour {
-					WheelbarrowSellerBehaviour(final Map<String, Integer> items) {
+			protected void createDialog() 
+			{
+				class WheelbarrowSellerBehaviour extends SellerBehaviour 
+				{
+					WheelbarrowSellerBehaviour(final Map<String, Integer> items) 
+					{
 						super(items);
 					}
 
@@ -54,11 +60,12 @@ public class WheelbarrowSellerNPC implements ZoneConfigurator {
 								seller.say("You don't seem to have enough money.");
 								return false;
 							}
-							seller.say("Here you go, your own wheelbarrow! Keep it safe.");
+							seller.say("Here you go, your own wheelbarrow! Use it well.");
 
-							final Wheelbarrow wheelbarrow = new Wheelbarrow(true);
+							final Wheelbarrow wheelbarrow = new Wheelbarrow(true, player);
 							StendhalRPAction.placeat(seller.getZone(), wheelbarrow, seller.getX(), seller.getY() + 1);
-
+							StendhalRPAction.placeat(seller.getZone(), wheelbarrow.wheelbarrowChest, seller.getX() + 1, seller.getY() + 1);
+							wheelbarrowZone.add(wheelbarrow.wheelbarrowChest);
 							player.notifyWorldAboutChanges();
 
 							return true;
@@ -81,7 +88,8 @@ public class WheelbarrowSellerNPC implements ZoneConfigurator {
 		};
 
 		npc.setEntityClass("sellernpc");
-		npc.setDescription("Hadvar stands awaiting buyers to purchase his wheelbarrows.");
+		npc.setDescription("Hadvar stands awaiting buyers to purchase his wheelbarrows. "
+				+ "His wheelbarrows are temporary and are only used in fado city.");
 		npc.setPosition(36, 44);
 		npc.initHP(100);
 		npc.setSounds(Arrays.asList("cough-11", "cough-2", "cough-3"));

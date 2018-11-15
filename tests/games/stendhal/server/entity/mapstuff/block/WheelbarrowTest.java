@@ -32,13 +32,13 @@ public class WheelbarrowTest {
 	
 	@Test
 	public final void testTogether() {
-		Wheelbarrow wheelbarrow = new Wheelbarrow(true);
-		wheelbarrow.setPosition(5, 5);;
-		StendhalRPZone z = new StendhalRPZone("test", 10, 10);
-		z.add(wheelbarrow);
 		Player player = PlayerTestHelper.createPlayer("testPlayer");
+		Wheelbarrow wheelbarrow = new Wheelbarrow(true, player);
+		wheelbarrow.setPosition(5, 5);;
+		StendhalRPZone zone = new StendhalRPZone("test", 10, 10);
+		zone.add(wheelbarrow);
 		wheelbarrow.push(player, Direction.RIGHT);
-		assertTrue(wheelbarrow.chestposition == wheelbarrow.position+1);
+		assertTrue(wheelbarrow.wheelbarrowChest.nextTo(wheelbarrow));
         fail();
 		
 	} //testReset

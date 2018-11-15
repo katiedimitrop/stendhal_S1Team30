@@ -68,7 +68,7 @@ public class WheelbarrowSellerNPCTest extends ZonePlayerAndNPCTestImpl {
 		assertEquals("I sell wheelbarrows.", getReply(npc));
 
 		assertTrue(en.step(player, "buy"));
-		assertEquals("A wheelbarrow will cost 100. Do you want to buy it?", getReply(npc));
+		assertEquals("A wheelbarrow will cost 20. Do you want to buy it?", getReply(npc));
 		assertTrue(en.step(player, "no"));
 		assertEquals("Ok, how else may I help you?", getReply(npc));
 
@@ -82,19 +82,19 @@ public class WheelbarrowSellerNPCTest extends ZonePlayerAndNPCTestImpl {
 		assertEquals("Sorry, I don't sell someunknownthings.", getReply(npc));
 
 		assertTrue(en.step(player, "buy wheelbarrow"));
-		assertEquals("A wheelbarrow will cost 100. Do you want to buy it?", getReply(npc));
+		assertEquals("A wheelbarrow will cost 20. Do you want to buy it?", getReply(npc));
 
 		assertTrue(en.step(player, "no"));
 		assertEquals("Ok, how else may I help you?", getReply(npc));
 
 		assertTrue(en.step(player, "buy wheelbarrow"));
-		assertEquals("A wheelbarrow will cost 100. Do you want to buy it?", getReply(npc));
+		assertEquals("A wheelbarrow will cost 20. Do you want to buy it?", getReply(npc));
 
 		assertTrue(en.step(player, "yes"));
 		assertEquals("You don't seem to have enough money.", getReply(npc));
 
 		// equip with enough money to buy one wheelbarrow
-		assertTrue(equipWithMoney(player, 100));
+		assertTrue(equipWithMoney(player, 20));
 
 		assertTrue(en.step(player, "buy 2 wheelbarrows"));
 		assertEquals("2 wheelbarrows will cost 200. Do you want to buy them?", getReply(npc));
@@ -103,7 +103,7 @@ public class WheelbarrowSellerNPCTest extends ZonePlayerAndNPCTestImpl {
 		assertEquals("Sorry! I can only sell one wheelbarrow.", getReply(npc));
 
 		assertTrue(en.step(player, "buy wheelbarrow"));
-		assertEquals("A wheelbarrow will cost 100. Do you want to buy it?", getReply(npc));
+		assertEquals("A wheelbarrow will cost 20. Do you want to buy it?", getReply(npc));
 		// Make sure there is no block currently at the position where the wheelbarrow will be spawned.
 		assertFalse(WheelbarrowSellerNPC.spawnIsBlocked());
 
@@ -111,11 +111,10 @@ public class WheelbarrowSellerNPCTest extends ZonePlayerAndNPCTestImpl {
 		
 		// Make sure the wheelbarrow has spawned and therefore the spawn location is now blocked.
 		assertTrue(WheelbarrowSellerNPC.spawnIsBlocked());
-		assertEquals("Here you go, your own wheelbarrow! Keep it safe.", getReply(npc));
+		assertEquals("Here you go, your own wheelbarrow! Use it well.", getReply(npc));
 
 		// Test for when the spawn location is blocked causing the NPC to say 
 		// something is blocking it and needs to be moved.
-		assertTrue(en.step(player, "offer"));
 		assertTrue(en.step(player, "buy wheelbarrow"));
 		assertTrue(en.step(player, "yes"));
 		
