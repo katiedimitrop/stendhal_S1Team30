@@ -26,28 +26,20 @@ public class Wheelbarrow extends Block {
 	public void beforeMove(ActiveEntity entity, StendhalRPZone zone, int oldX,
 			int oldY, int newX, int newY) {
 		if (entity instanceof Player) {
-			wheelbarrowChest.setPosition(newX, newY);
 			Rectangle2D oldA = new Rectangle2D.Double(oldX, oldY, entity.getWidth(), entity.getHeight());
 			Rectangle2D newA = new Rectangle2D.Double(newX, newY, entity.getWidth(), entity.getHeight());
 			Direction d = Direction.getAreaDirectionTowardsArea(oldA, newA);
-			this.push((Player) entity, d);
-			wheelbarrowChest.update();
-			wheelbarrowChest.close();
-			wheelbarrowChest.open(wheelbarrowOwner);
-			this.notifyAll();
+			if (!(zone.collides(entity, newX + d.getdx() * 2, newY + d.getdy() * 2))) 
+			{
+				wheelbarrowChest.setPosition(newX + d.getdx() * 2, newY + d.getdy() * 2);
+				this.push((Player) entity, d);
+				wheelbarrowChest.open(wheelbarrowOwner);
+			}
 		}
 	}
 	
 	@Override
-	public void onMoved(ActiveEntity entity, StendhalRPZone zone, int oldX,
-			int oldY, int newX, int newY) {
-		wheelbarrowChest.update();
-		wheelbarrowChest.open(wheelbarrowOwner);
-	}
-	
-	@Override
 	public String getDescription() {
-		wheelbarrowChest.open(wheelbarrowOwner);
 		return "You see a wheelbarrow wheel.";
 	}
 

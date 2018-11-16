@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import games.stendhal.common.Direction;
 import games.stendhal.server.core.engine.StendhalRPZone;
+import games.stendhal.server.core.rp.StendhalRPAction;
 import games.stendhal.server.entity.player.Player;
 import games.stendhal.server.maps.MockStendlRPWorld;
 import utilities.PlayerTestHelper;
@@ -34,13 +35,16 @@ public class WheelbarrowTest {
 	public final void testTogether() {
 		Player player = PlayerTestHelper.createPlayer("testPlayer");
 		Wheelbarrow wheelbarrow = new Wheelbarrow(true, player);
-		wheelbarrow.setPosition(5, 5);;
-		StendhalRPZone zone = new StendhalRPZone("test", 10, 10);
+		StendhalRPZone zone = new StendhalRPZone("test", 16, 16);
 		zone.add(wheelbarrow);
-		wheelbarrow.push(player, Direction.RIGHT);
-		assertTrue(wheelbarrow.wheelbarrowChest.nextTo(wheelbarrow));
-        fail();
+		zone.add(wheelbarrow.wheelbarrowChest);
+		StendhalRPAction.placeat(zone, wheelbarrow, 5, 5);
+		StendhalRPAction.placeat(zone, wheelbarrow.wheelbarrowChest, 6, 5);
+		wheelbarrow.setPosition(5, 5);
+		wheelbarrow.wheelbarrowChest.setPosition(6, 5);
 		
+		wheelbarrow.push(player, Direction.RIGHT);
+		assertTrue(wheelbarrow.wheelbarrowChest.getX() == (wheelbarrow.getX() + 1));
 	} //testReset
 	
 

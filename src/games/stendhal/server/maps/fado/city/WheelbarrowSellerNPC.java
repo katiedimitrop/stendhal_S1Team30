@@ -17,9 +17,7 @@ import games.stendhal.server.entity.player.Player;
 
 public class WheelbarrowSellerNPC implements ZoneConfigurator {
 
-	public static final int BUYING_PRICE = 20;
-	
-	private StendhalRPZone wheelbarrowZone;
+	public static final int BUYING_PRICE = 40;
 	
 	/**
 	 * Configure a zone.
@@ -30,7 +28,6 @@ public class WheelbarrowSellerNPC implements ZoneConfigurator {
 	@Override
 	public void configureZone(final StendhalRPZone zone, final Map<String, String> attributes) {
 		buildFadoCityArea(zone);
-		wheelbarrowZone = zone;
 	}
 
 	private void buildFadoCityArea(final StendhalRPZone zone) {
@@ -55,7 +52,7 @@ public class WheelbarrowSellerNPC implements ZoneConfigurator {
 						if (res.getAmount() > 1) {
 							seller.say("Sorry! I can only sell one wheelbarrow.");
 							return false;
-						} else if (!spawnIsBlocked()) {
+						} else if (!(seller.getEntity().nextTo(player))) {
 							if (!player.drop("money", getCharge(res, player))) {
 								seller.say("You don't seem to have enough money.");
 								return false;
@@ -65,12 +62,12 @@ public class WheelbarrowSellerNPC implements ZoneConfigurator {
 							final Wheelbarrow wheelbarrow = new Wheelbarrow(true, player);
 							StendhalRPAction.placeat(seller.getZone(), wheelbarrow, seller.getX(), seller.getY() + 1);
 							StendhalRPAction.placeat(seller.getZone(), wheelbarrow.wheelbarrowChest, seller.getX() + 1, seller.getY() + 1);
-							wheelbarrowZone.add(wheelbarrow.wheelbarrowChest);
+							//seller.getZone().add(wheelbarrow.wheelbarrowChest);
 							player.notifyWorldAboutChanges();
 
 							return true;
 						} else {
-							say("I need space to give you your wheelbarrow, please move whatever is blocking my space.");
+							say("I need space to give you your wheelbarrow, please give me some room.");
 							return false;
 						}
 					}
@@ -89,15 +86,11 @@ public class WheelbarrowSellerNPC implements ZoneConfigurator {
 
 		npc.setEntityClass("sellernpc");
 		npc.setDescription("Hadvar stands awaiting buyers to purchase his wheelbarrows. "
-				+ "His wheelbarrows are temporary and are only used in fado city.");
+				+ "His wheelbarrows don't last forever and are only used in fado city.");
 		npc.setPosition(36, 44);
 		npc.initHP(100);
 		npc.setSounds(Arrays.asList("cough-11", "cough-2", "cough-3"));
 		zone.add(npc);
-	}
-
-	public static boolean spawnIsBlocked() {
-		return false; // isObstacle(36, 45); TODO: Implement this.
 	}
 
 }
