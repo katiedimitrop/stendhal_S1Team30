@@ -1,5 +1,14 @@
 Changelog
 ---------
+1.29uom
+*features added*
+- Lon Jatham NPC added at the University of Manchester Ados Campus
+- Wheelbarrows added for the Fado City zone along with their seller, Hadvar.
+- Invisibility ring added to let players appear invisible to most creatures and NPCs.
+- Teleportation scroll added for Wofol City.
+
+
+
 1.28uom
 *bugfixes*
 - fixed teleporting hut problem - players no longer spawn outside the entrance of the huts
