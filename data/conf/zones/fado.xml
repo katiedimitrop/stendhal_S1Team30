@@ -38,6 +38,8 @@
     <configurator class-name="games.stendhal.server.maps.fado.city.NunNPC" />
     <configurator class-name="games.stendhal.server.maps.fado.city.SmallBoyNPC" />
     <configurator class-name="games.stendhal.server.maps.fado.city.RabbitNPC" />
+    <configurator class-name="games.stendhal.server.maps.fado.city.WheelbarrowSellerNPC" />
+    
 
     <!-- Gates -->
     <entity x="55" y="22">
