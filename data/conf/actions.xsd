@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="stendhal"
+	xmlns:tns="http://www.example.org/actions" elementFormDefault="qualified"
+	xmlns:Q3="stendhal">
+	
+	<element name="actions" type="Q3:Actions" />
+	
+	<complexType name="Actions" >
+		<sequence>
+			<element name="action" type="Q3:Action" minOccurs="0" maxOccurs="unbounded"/>
+		</sequence>
+	</complexType>
+	
+	<complexType name="Action">
+		<sequence>
+			<element name="implementation" type="Q3:Implementation" />
+			<element name="attributes" type="Q3:Attributes" />
+		</sequence>
+		<attribute name="name" type="string" use="required"/>
+	</complexType>
+	
+	<complexType name="Implementation">
+    	<attribute name="class-name" type="string"></attribute>
+    </complexType>
+    
+    <complexType name="Attributes">
+    	<sequence>
+    		<element name="max-parameters" type="Q3:attribute-integer" minOccurs="1" maxOccurs = "1"/>
+    		<element name="min-parameters" type="Q3:attribute-integer" minOccurs="1" maxOccurs = "1"/>
+    	</sequence>
+    </complexType>
+    
+     <complexType name="attribute-integer">
+    	<attribute name="value" type="integer" />
+    </complexType>
+ 
+    
+</schema>
