@@ -28,9 +28,17 @@ import org.xml.sax.SAXException;
 /**
  * Alter an entity's attributes.
  */
-class Action implements SlashAction {
-
-	/**
+abstract class Action implements SlashAction 
+{
+    //Command name of the action 
+    
+     //All subclasses must provide this
+     protected abstract String getCommandName();
+     
+	 //Create path of xml file for parsing
+     String xmlPath = "data/conf/actions/" + getCommandName()+".xml";
+     
+     /**
 	 * Executes a chat command.
 	 *
 	 * @param params
@@ -67,7 +75,7 @@ class Action implements SlashAction {
 		}
 	     Document document = null;
 		try {
-			document = builder.parse(new File("data/conf/actions/drop.xml"));
+			document = builder.parse(new File(xmlPath));
 		} catch (SAXException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -117,7 +125,7 @@ class Action implements SlashAction {
 		}
 	     Document document = null;
 		try {
-			document = builder.parse(new File("data/conf/actions/drop.xml"));
+			document = builder.parse(new File("xmlPath"));
 		} catch (SAXException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

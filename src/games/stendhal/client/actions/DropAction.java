@@ -26,8 +26,17 @@ import marauroa.common.game.RPAction;
 /**
  * Drop a player item.
  */
-class DropAction extends Action {
-
+class DropAction extends Action 
+{
+	 //Name of xml file that contains the min and max no of parameters
+     public static final String COMMAND_NAME = "drop";
+     
+     @Override
+ 	 protected String getCommandName() 
+     {
+ 		return COMMAND_NAME;
+ 	 }
+	
 	/**
 	 * Execute a chat command.
 	 *
@@ -71,7 +80,7 @@ class DropAction extends Action {
 			if (itemID != -1) {
 				final RPAction drop = new RPAction();
 
-				drop.put(EquipActionConsts.TYPE, "drop");
+				drop.put(EquipActionConsts.TYPE, COMMAND_NAME);
 				drop.put(EquipActionConsts.BASE_OBJECT, User.get().getObjectID());
 				drop.put(EquipActionConsts.BASE_SLOT, slotName);
 				drop.put(EquipActionConsts.GROUND_X, (int) User.get().getX());
@@ -86,4 +95,5 @@ class DropAction extends Action {
 		ClientSingletonRepository.getUserInterface().addEventLine(new StandardEventLine("You don't have any " + singularItemName));
 		return true;
 	}
+
 }
