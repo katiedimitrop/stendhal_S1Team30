@@ -12,6 +12,14 @@
  ***************************************************************************/
 package games.stendhal.client.actions;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
 import games.stendhal.client.ClientSingletonRepository;
 import games.stendhal.client.entity.User;
 import games.stendhal.client.gui.chatlog.StandardEventLine;
@@ -19,6 +27,10 @@ import games.stendhal.common.Constants;
 import games.stendhal.common.EquipActionConsts;
 import games.stendhal.common.grammar.Grammar;
 import marauroa.common.game.RPAction;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 
 /**
  * Drop a player item.
@@ -90,8 +102,48 @@ class DropAction implements SlashAction {
 	 * @return The parameter count.
 	 */
 	@Override
-	public int getMaximumParameters() {
-		return 1;
+	public int getMaximumParameters()
+	{
+		int maxNoOfParameters;
+	
+		 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		 DocumentBuilder builder = null;
+		try {
+			builder = factory.newDocumentBuilder();
+		} catch (ParserConfigurationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	     Document document = null;
+		try {
+			document = builder.parse(new File("data/conf/actions/drop.xml"));
+		} catch (SAXException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+         //Get actions element
+	     Element actions = document.getDocumentElement();
+         //Make list of actions under element
+	     NodeList actionList = actions.getElementsByTagName("action");
+	     //Make element out of first action
+	     Element action = (Element) actionList.item(0);
+	     
+	     //Make a list of attributes
+	     NodeList attributeList = action.getElementsByTagName("attributes");
+	     
+	     //Make element out of first attribute
+	     Element attribute = (Element) attributeList.item(0);
+	     //Make list out of parameters in attribute
+	     NodeList parameterList = attribute.getElementsByTagName("max-parameters");
+	     //Make element out of first parameter
+	     Element maxParameterTag = (Element) parameterList.item(0);
+	     //get its value
+	     
+        
+         maxNoOfParameters = Integer.parseInt(maxParameterTag.getAttribute("value"));
+       
+         
+		return maxNoOfParameters;
 	}
 
 	/**
@@ -101,6 +153,8 @@ class DropAction implements SlashAction {
 	 */
 	@Override
 	public int getMinimumParameters() {
+		
+		
 		return 1;
 	}
 }
