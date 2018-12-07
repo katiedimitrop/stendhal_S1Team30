@@ -125,7 +125,7 @@ abstract class Action implements SlashAction
 		}
 	     Document document = null;
 		try {
-			document = builder.parse(new File("xmlPath"));
+			document = builder.parse(new File(xmlPath));
 		} catch (SAXException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

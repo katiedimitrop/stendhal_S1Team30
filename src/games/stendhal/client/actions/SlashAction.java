@@ -50,6 +50,7 @@ public interface SlashAction {
 	 * @return The parameter count.
 	 */
 	int getMinimumParameters();
+	
 
 	// Not yet
 	// /**

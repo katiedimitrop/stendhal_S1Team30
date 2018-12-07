@@ -2,4 +2,5 @@
 <groups xmlns="stendhal" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="stendhal groups.xsd ">
 	<group uri="actions/drop.xml" />
+	<group uri="actions/teleport.xml" />
 </groups>
