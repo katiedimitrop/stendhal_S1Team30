@@ -18,7 +18,17 @@ import marauroa.common.game.RPAction;
 /**
  * Toggle between invisibility.
  */
-class InvisibleAction implements SlashAction {
+class InvisibleAction extends Action {
+	
+	//Name of xml file that contains the min and max no of parameters
+    public static final String COMMAND_NAME = "invisible";
+    
+    @Override
+	 protected String getCommandName() 
+    {
+		return COMMAND_NAME;
+	 }
+    
 
 	/**
 	 * Execute a chat command.
@@ -39,25 +49,5 @@ class InvisibleAction implements SlashAction {
 		ClientSingletonRepository.getClientFramework().send(invisible);
 
 		return true;
-	}
-
-	/**
-	 * Get the maximum number of formal parameters.
-	 *
-	 * @return The parameter count.
-	 */
-	@Override
-	public int getMaximumParameters() {
-		return 0;
-	}
-
-	/**
-	 * Get the minimum number of formal parameters.
-	 *
-	 * @return The parameter count.
-	 */
-	@Override
-	public int getMinimumParameters() {
-		return 0;
 	}
 }

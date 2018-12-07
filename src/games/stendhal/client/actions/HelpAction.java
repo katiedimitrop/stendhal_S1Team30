@@ -19,7 +19,17 @@ import games.stendhal.common.NotificationType;
 /**
  * Display command usage. Eventually replace this with ChatCommand.usage().
  */
-class HelpAction implements SlashAction {
+class HelpAction extends Action {
+	
+	//Name of xml file that contains the min and max no of parameters
+    public static final String COMMAND_NAME = "help";
+    
+    @Override
+	 protected String getCommandName() 
+    {
+		return COMMAND_NAME;
+	 }
+    
 
 	/**
 	 * Execute a chat command.
@@ -95,25 +105,5 @@ class HelpAction implements SlashAction {
 		}
 
 		return true;
-	}
-
-	/**
-	 * Get the maximum number of formal parameters.
-	 *
-	 * @return The parameter count.
-	 */
-	@Override
-	public int getMaximumParameters() {
-		return 0;
-	}
-
-	/**
-	 * Get the minimum number of formal parameters.
-	 *
-	 * @return The parameter count.
-	 */
-	@Override
-	public int getMinimumParameters() {
-		return 0;
 	}
 }

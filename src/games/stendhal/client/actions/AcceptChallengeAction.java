@@ -3,7 +3,17 @@ package games.stendhal.client.actions;
 import games.stendhal.client.ClientSingletonRepository;
 import marauroa.common.game.RPAction;
 
-public class AcceptChallengeAction implements SlashAction {
+public class AcceptChallengeAction extends Action {
+	
+	//Name of xml file that contains the min and max no of parameters
+    public static final String COMMAND_NAME = "acceptchallenge";
+    
+    @Override
+	 protected String getCommandName() 
+    {
+		return COMMAND_NAME;
+	 }
+    
 
 	@Override
 	public boolean execute(String[] params, String remainder) {
@@ -18,15 +28,4 @@ public class AcceptChallengeAction implements SlashAction {
 
 		return true;
 	}
-
-	@Override
-	public int getMaximumParameters() {
-		return 1;
-	}
-
-	@Override
-	public int getMinimumParameters() {
-		return 1;
-	}
-
 }

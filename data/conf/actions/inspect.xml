@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions xmlns="stendhal" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="stendhal ../actions.xsd ">
+	<action name="drop">
+	  <implementation class-name="games.stendhal.server.actions.equip.InspectAction.java"/>
+	  <attributes>
+		<max-parameters value = "1" />
+		<min-parameters value = "1" />	
+	  </attributes>
+	</action>
+</actions>

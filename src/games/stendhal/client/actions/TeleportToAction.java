@@ -19,7 +19,16 @@ import marauroa.common.game.RPAction;
 /**
  * Teleport player to another player's location.
  */
-class TeleportToAction implements SlashAction {
+class TeleportToAction extends Action {
+	
+	//Name of xml file that contains the min and max no of parameters
+    public static final String COMMAND_NAME = "teleportto";
+    
+    @Override
+	 protected String getCommandName() 
+    {
+		return COMMAND_NAME;
+	 }
 
 	/**
 	 * Execute a chat command.
@@ -41,25 +50,5 @@ class TeleportToAction implements SlashAction {
 		ClientSingletonRepository.getClientFramework().send(teleport);
 
 		return true;
-	}
-
-	/**
-	 * Get the maximum number of formal parameters.
-	 *
-	 * @return The parameter count.
-	 */
-	@Override
-	public int getMaximumParameters() {
-		return 0;
-	}
-
-	/**
-	 * Get the minimum number of formal parameters.
-	 *
-	 * @return The parameter count.
-	 */
-	@Override
-	public int getMinimumParameters() {
-		return 0;
 	}
 }

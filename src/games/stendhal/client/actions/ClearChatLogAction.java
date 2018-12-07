@@ -17,7 +17,17 @@ import games.stendhal.client.gui.j2DClient;
 /**
  * clears the event and chat log window
  */
-class ClearChatLogAction implements SlashAction {
+class ClearChatLogAction extends Action {
+	
+	//Name of xml file that contains the min and max no of parameters
+    public static final String COMMAND_NAME = "clearchatlog";
+    
+    @Override
+	 protected String getCommandName() 
+    {
+		return COMMAND_NAME;
+	 }
+    
 
 	/**
 	 * Execute a chat command.
@@ -34,25 +44,4 @@ class ClearChatLogAction implements SlashAction {
 		j2DClient.get().clearGameLog();
 		return true;
 	}
-
-	/**
-	 * Get the maximum number of formal parameters.
-	 *
-	 * @return The parameter count.
-	 */
-	@Override
-	public int getMaximumParameters() {
-		return 0;
-	}
-
-	/**
-	 * Get the minimum number of formal parameters.
-	 *
-	 * @return The parameter count.
-	 */
-	@Override
-	public int getMinimumParameters() {
-		return 0;
-	}
-
 }

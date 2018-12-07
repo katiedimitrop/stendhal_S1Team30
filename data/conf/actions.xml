@@ -3,4 +3,19 @@
 	xsi:schemaLocation="stendhal groups.xsd ">
 	<group uri="actions/drop.xml" />
 	<group uri="actions/teleport.xml" />
+	<group uri="actions/summon.xml" />
+	<group uri="actions/adminlevel.xml" />
+	<group uri="actions/acceptchallenge.xml" />
+	<group uri="actions/ban.xml" />
+	<group uri="actions/castspell.xml" />
+	<group uri="actions/clearchatlog.xml" />
+	<group uri="actions/gag.xml" />
+	<group uri="actions/help.xml" />
+	<group uri="actions/invisible.xml" />
+	<group uri="actions/jail.xml" />
+	<group uri="actions/teleportto.xml" />
+	<group uri="actions/inspect.xml" />
+	<group uri="actions/autowalk.xml" />
+	<group uri="actions/addbuddy.xml" />
+	<group uri="actions/grumpy.xml" />
 </groups>

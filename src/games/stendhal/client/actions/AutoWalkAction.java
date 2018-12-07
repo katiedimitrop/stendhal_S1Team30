@@ -25,7 +25,17 @@ import marauroa.common.game.RPAction;
  * @author
  * 		AntumDeluge
  */
-public class AutoWalkAction implements SlashAction {
+public class AutoWalkAction extends Action {
+	
+	//Name of xml file that contains the min and max no of parameters
+    public static final String COMMAND_NAME = "autowalk";
+    
+    @Override
+	 protected String getCommandName() 
+    {
+		return COMMAND_NAME;
+	 }
+    
 
 	/**
 	 * Execute a chat command.
@@ -48,27 +58,4 @@ public class AutoWalkAction implements SlashAction {
 
 		return true;
 	}
-
-	/**
-	 * Get the maximum number of formal parameters.
-	 *
-	 * @return
-	 * 		Parameter count.
-	 */
-	@Override
-	public int getMaximumParameters() {
-		return 0;
-	}
-
-	/**
-	 * Get the minimum number of formal parameters.
-	 *
-	 * @return
-	 * 		Parameter count.
-	 */
-	@Override
-	public int getMinimumParameters() {
-		return 0;
-	}
-
 }

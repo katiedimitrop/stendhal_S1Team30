@@ -18,7 +18,17 @@ import marauroa.common.game.RPAction;
 /**
  * Send a player to jail.
  */
-class JailAction implements SlashAction {
+class JailAction extends Action {
+	
+	//Name of xml file that contains the min and max no of parameters
+    public static final String COMMAND_NAME = "jail";
+    
+    @Override
+	 protected String getCommandName() 
+    {
+		return COMMAND_NAME;
+	 }
+    
 
 	/**
 	 * Execute a chat command.
@@ -49,25 +59,5 @@ class JailAction implements SlashAction {
 		ClientSingletonRepository.getClientFramework().send(action);
 
 		return true;
-	}
-
-	/**
-	 * Get the maximum number of formal parameters.
-	 *
-	 * @return The parameter count.
-	 */
-	@Override
-	public int getMaximumParameters() {
-		return 2;
-	}
-
-	/**
-	 * Get the minimum number of formal parameters.
-	 *
-	 * @return The parameter count.
-	 */
-	@Override
-	public int getMinimumParameters() {
-		return 2;
 	}
 }
