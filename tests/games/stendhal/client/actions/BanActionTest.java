@@ -14,18 +14,22 @@ package games.stendhal.client.actions;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import games.stendhal.client.MockStendhalClient;
 import games.stendhal.client.StendhalClient;
 import marauroa.common.game.RPAction;
 
-public class AlterQuestActionTest {
+public class BanActionTest {
+
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+	}
 
 	@After
 	public void tearDown() throws Exception {
@@ -40,40 +44,23 @@ public class AlterQuestActionTest {
 		new MockStendhalClient() {
 			@Override
 			public void send(final RPAction action) {
-				assertEquals("alterquest", action.get("type"));
+				assertEquals("ban", action.get("type"));
 				assertEquals("schnick", action.get("target"));
-				assertEquals("schnack", action.get("name"));
-				assertEquals("schnuck", action.get("state"));
-
+				assertEquals("schnack", action.get("hours"));
+				assertEquals("schnuck", action.get("reason"));
 			}
 		};
-		final AlterQuestAction action = new AlterQuestAction();
-		assertFalse(action.execute(null, null));
-		assertFalse(action.execute(new String[] { "schnick" }, null));
-		assertTrue(action.execute(new String[] { "schnick", "schnack", "schnuck" }, null));
-
-		new MockStendhalClient() {
-			@Override
-			public void send(final RPAction action) {
-				assertEquals("alterquest", action.get("type"));
-				assertEquals("schnick", action.get("target"));
-				assertEquals("schnick", action.get("name"));
-				assertEquals(null, action.get("state"));
-
-			}
-		};
-
-		assertTrue(action.execute(new String[] { "schnick", "schnick" }, null));
-
+		final BanAction action = new BanAction();
+		assertTrue(action.execute(new String[] { "schnick", "schnack"}, "schnuck" ));
 	}
-	
+
 	/**
 	 * Tests for getMaximumParameters.
 	 */
 	@Test
 	public void testGetMaximumParameters() {
-		final AlterQuestAction action = new AlterQuestAction();
-		assertThat(action.getMaximumParameters(), is(3));
+		final BanAction action = new BanAction();
+		assertThat(action.getMaximumParameters(), is(2));
 	}
 
 	/**
@@ -81,7 +68,8 @@ public class AlterQuestActionTest {
 	 */
 	@Test
 	public void testGetMinimumParameters() {
-		final AlterQuestAction action = new AlterQuestAction();
+		final BanAction action = new BanAction();
 		assertThat(action.getMinimumParameters(), is(2));
 	}
+
 }

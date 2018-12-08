@@ -14,18 +14,22 @@ package games.stendhal.client.actions;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+//import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import games.stendhal.client.MockStendhalClient;
 import games.stendhal.client.StendhalClient;
 import marauroa.common.game.RPAction;
 
-public class AlterQuestActionTest {
+public class GroupManagementActionTest {
+
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+	}
 
 	@After
 	public void tearDown() throws Exception {
@@ -40,40 +44,22 @@ public class AlterQuestActionTest {
 		new MockStendhalClient() {
 			@Override
 			public void send(final RPAction action) {
-				assertEquals("alterquest", action.get("type"));
-				assertEquals("schnick", action.get("target"));
-				assertEquals("schnack", action.get("name"));
-				assertEquals("schnuck", action.get("state"));
-
+				assertEquals("group_management", action.get("type"));
+				assertEquals("schnick", action.get("action"));
+				assertEquals("schnack", action.get("params"));
 			}
 		};
-		final AlterQuestAction action = new AlterQuestAction();
-		assertFalse(action.execute(null, null));
-		assertFalse(action.execute(new String[] { "schnick" }, null));
-		assertTrue(action.execute(new String[] { "schnick", "schnack", "schnuck" }, null));
-
-		new MockStendhalClient() {
-			@Override
-			public void send(final RPAction action) {
-				assertEquals("alterquest", action.get("type"));
-				assertEquals("schnick", action.get("target"));
-				assertEquals("schnick", action.get("name"));
-				assertEquals(null, action.get("state"));
-
-			}
-		};
-
-		assertTrue(action.execute(new String[] { "schnick", "schnick" }, null));
-
+		//final GroupManagementAction action = new GroupManagementAction(null);
+		//assertTrue(action.execute(new String[] { "schnick", "schnick" }, null));
 	}
-	
+
 	/**
 	 * Tests for getMaximumParameters.
 	 */
 	@Test
 	public void testGetMaximumParameters() {
-		final AlterQuestAction action = new AlterQuestAction();
-		assertThat(action.getMaximumParameters(), is(3));
+		final GroupManagementAction action = new GroupManagementAction(null);
+		assertThat(action.getMaximumParameters(), is(1));
 	}
 
 	/**
@@ -81,7 +67,8 @@ public class AlterQuestActionTest {
 	 */
 	@Test
 	public void testGetMinimumParameters() {
-		final AlterQuestAction action = new AlterQuestAction();
-		assertThat(action.getMinimumParameters(), is(2));
+		final GroupManagementAction action = new GroupManagementAction(null);
+		assertThat(action.getMinimumParameters(), is(1));
 	}
+
 }

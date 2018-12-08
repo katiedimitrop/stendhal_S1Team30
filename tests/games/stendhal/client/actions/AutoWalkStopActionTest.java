@@ -12,20 +12,31 @@
  ***************************************************************************/
 package games.stendhal.client.actions;
 
+import static games.stendhal.common.constants.Actions.MODE;
+import static games.stendhal.common.constants.Actions.TARGET;
+import static games.stendhal.common.constants.Actions.TYPE;
+import static games.stendhal.common.constants.Actions.WALK;
+
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+
 import org.junit.After;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import games.stendhal.client.MockStendhalClient;
 import games.stendhal.client.StendhalClient;
 import marauroa.common.game.RPAction;
 
-public class AlterQuestActionTest {
+public class AutoWalkStopActionTest {
+
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+	}
 
 	@After
 	public void tearDown() throws Exception {
@@ -40,40 +51,23 @@ public class AlterQuestActionTest {
 		new MockStendhalClient() {
 			@Override
 			public void send(final RPAction action) {
-				assertEquals("alterquest", action.get("type"));
-				assertEquals("schnick", action.get("target"));
-				assertEquals("schnack", action.get("name"));
-				assertEquals("schnuck", action.get("state"));
+				assertEquals(WALK, action.get(TYPE));
+				assertEquals("schnick", action.get(TARGET));
+				assertEquals("stop", action.get(MODE));
 
 			}
 		};
-		final AlterQuestAction action = new AlterQuestAction();
-		assertFalse(action.execute(null, null));
-		assertFalse(action.execute(new String[] { "schnick" }, null));
-		assertTrue(action.execute(new String[] { "schnick", "schnack", "schnuck" }, null));
-
-		new MockStendhalClient() {
-			@Override
-			public void send(final RPAction action) {
-				assertEquals("alterquest", action.get("type"));
-				assertEquals("schnick", action.get("target"));
-				assertEquals("schnick", action.get("name"));
-				assertEquals(null, action.get("state"));
-
-			}
-		};
-
-		assertTrue(action.execute(new String[] { "schnick", "schnick" }, null));
-
+		final AutoWalkStopAction action = new AutoWalkStopAction();
+		assertTrue(action.execute(null, "schnick"));
 	}
-	
+
 	/**
 	 * Tests for getMaximumParameters.
 	 */
 	@Test
 	public void testGetMaximumParameters() {
-		final AlterQuestAction action = new AlterQuestAction();
-		assertThat(action.getMaximumParameters(), is(3));
+		final AutoWalkStopAction action = new AutoWalkStopAction();
+		assertThat(action.getMaximumParameters(), is(0));
 	}
 
 	/**
@@ -81,7 +75,8 @@ public class AlterQuestActionTest {
 	 */
 	@Test
 	public void testGetMinimumParameters() {
-		final AlterQuestAction action = new AlterQuestAction();
-		assertThat(action.getMinimumParameters(), is(2));
+		final AutoWalkStopAction action = new AutoWalkStopAction();
+		assertThat(action.getMinimumParameters(), is(0));
 	}
+
 }
