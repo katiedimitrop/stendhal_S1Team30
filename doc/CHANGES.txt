@@ -1,5 +1,12 @@
 Changelog
 ---------
+1.30uom
+*action commands refactored*
+- Commands can now be added by modifying XML files rather than creating new classes for every command.
+- Test coverage of games.stendhal.client.actions raised to 66.9%.
+
+
+
 1.29uom
 *features added*
 - Lon Jatham NPC added at the University of Manchester Ados Campus
