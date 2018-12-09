@@ -36,3 +36,4 @@ public class SoundActionTest {
 		assertThat(action.getMinimumParameters(), is(0));
 	}
 }
+ 
